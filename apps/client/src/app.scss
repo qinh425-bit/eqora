@@ -1,0 +1,102 @@
+﻿$ink: #1f1a17;
+$paper: #f6efe4;
+$accent: #d97a32;
+$accent-deep: #9a4b18;
+$muted: #756557;
+$card: rgba(255, 248, 238, 0.88);
+$line: rgba(107, 78, 46, 0.16);
+$olive: #5d6953;
+
+page {
+  background:
+    radial-gradient(circle at top left, rgba(217, 122, 50, 0.18), transparent 38%),
+    radial-gradient(circle at right 20%, rgba(93, 105, 83, 0.16), transparent 28%),
+    linear-gradient(180deg, #f7efe3 0%, #f1e6d8 100%);
+  color: $ink;
+  font-family: "Noto Serif SC", "Source Han Serif SC", "PingFang SC", serif;
+}
+
+.page-shell {
+  min-height: 100vh;
+  padding: 28px 18px 40px;
+  box-sizing: border-box;
+}
+
+.hero-card,
+.content-card,
+.scenario-card,
+.score-card,
+.quote-card,
+.metric-card {
+  background: $card;
+  border: 1px solid $line;
+  border-radius: 22px;
+  box-shadow: 0 18px 36px rgba(82, 52, 26, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.section-subtitle {
+  font-size: 13px;
+  color: $muted;
+  line-height: 1.6;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(217, 122, 50, 0.12);
+  color: $accent-deep;
+  font-size: 12px;
+}
+
+.primary-button {
+  width: 100%;
+  border: none;
+  border-radius: 16px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, #d97a32 0%, #b5591e 100%);
+  color: #fff8f1;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.secondary-button {
+  width: 100%;
+  border-radius: 16px;
+  padding: 12px 16px;
+  border: 1px solid rgba(93, 105, 83, 0.3);
+  background: rgba(93, 105, 83, 0.08);
+  color: $olive;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.fade-up {
+  animation: fade-up 360ms ease-out both;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

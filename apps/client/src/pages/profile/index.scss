@@ -1,0 +1,93 @@
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.profile-hero,
+.settings-panel,
+.stats-panel,
+.records-panel,
+.legal-panel {
+  padding: 18px;
+}
+
+.profile-title {
+  display: block;
+  margin: 14px 0 10px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.api-input {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.68);
+  font-size: 14px;
+}
+
+.button-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.half-button {
+  flex: 1;
+}
+
+.status-text {
+  display: block;
+  margin-top: 12px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.record-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.record-card {
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.record-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.record-title {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.record-score {
+  font-size: 18px;
+  font-weight: 700;
+  color: #9a4b18;
+}
+
+.record-meta {
+  display: block;
+  margin-top: 10px;
+  font-size: 12px;
+  color: #6d5d4f;
+}
+
+.legal-row {
+  margin-top: 14px;
+}

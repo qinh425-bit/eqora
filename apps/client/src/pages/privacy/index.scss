@@ -1,0 +1,25 @@
+.legal-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.legal-hero,
+.legal-section {
+  padding: 18px;
+}
+
+.legal-title {
+  display: block;
+  margin: 14px 0 10px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.legal-copy {
+  display: block;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #5f5245;
+}

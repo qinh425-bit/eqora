@@ -1,0 +1,33 @@
+{
+  "users": [
+    {
+      "id": "686ce9d8-8fe2-488b-9b3a-d9dbb941ee81",
+      "externalId": "guest:demo-user",
+      "nickname": "demo-user",
+      "platform": "guest",
+      "createdAt": "2026-03-17T04:31:01.834Z",
+      "updatedAt": "2026-03-17T04:31:01.834Z"
+    }
+  ],
+  "sessions": [
+    {
+      "token": "4e8d88f0-cc48-4fe3-8ae1-d24bca9c2269",
+      "userId": "686ce9d8-8fe2-488b-9b3a-d9dbb941ee81",
+      "createdAt": "2026-03-17T04:31:01.837Z"
+    }
+  ],
+  "records": [
+    {
+      "id": "88471f65-404e-485c-a2f5-2acc661482b5",
+      "userId": "686ce9d8-8fe2-488b-9b3a-d9dbb941ee81",
+      "scenarioId": "test-scenario",
+      "scenarioTitle": "Test Scenario",
+      "category": "workplace",
+      "overallScore": 88,
+      "summary": "Saved from local verification",
+      "answer": "demo answer",
+      "thinkingTimeMs": 5200,
+      "createdAt": "2026-03-17T04:31:01.849Z"
+    }
+  ]
+}

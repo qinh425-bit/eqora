@@ -1,0 +1,36 @@
+{
+  "name": "@speakwise/client",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "taro build --type weapp --watch",
+    "build:weapp": "taro build --type weapp",
+    "build:tt": "taro build --type tt",
+    "build:h5": "taro build --type h5"
+  },
+  "dependencies": {
+    "@tarojs/components": "^4.0.8",
+    "@tarojs/react": "^4.0.8",
+    "@tarojs/runtime": "^4.0.8",
+    "@tarojs/taro": "^4.0.8",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-react": "^7.27.1",
+    "@babel/preset-typescript": "^7.27.1",
+    "@tarojs/cli": "^4.0.8",
+    "@tarojs/plugin-framework-react": "^4.0.8",
+    "@tarojs/plugin-platform-h5": "^4.0.8",
+    "@tarojs/plugin-platform-tt": "^4.0.8",
+    "@tarojs/plugin-platform-weapp": "^4.0.8",
+    "@tarojs/vite-runner": "^4.0.8",
+    "@types/react": "^18.3.12",
+    "@vitejs/plugin-react": "^4.4.1",
+    "babel-preset-taro": "^4.0.8",
+    "sass": "^1.89.0",
+    "typescript": "^5.8.2",
+    "vite": "^4.5.5"
+  }
+}

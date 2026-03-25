@@ -1,0 +1,125 @@
+.challenge-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.scenario-panel,
+.voice-panel,
+.editor-panel,
+.tips-panel {
+  padding: 18px;
+}
+
+.timer-pill {
+  background: rgba(93, 105, 83, 0.12);
+  color: #495543;
+}
+
+.scenario-title {
+  display: block;
+  margin-top: 14px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.scenario-prompt {
+  display: block;
+  margin: 12px 0 16px;
+  line-height: 1.7;
+  color: #65574a;
+}
+
+.counterpart-box {
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.62);
+  margin-bottom: 14px;
+}
+
+.counterpart-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: #9a4b18;
+}
+
+.counterpart-line {
+  display: block;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.voice-row {
+  margin-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.voice-status {
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.voice-idle {
+  background: rgba(93, 105, 83, 0.12);
+  color: #495543;
+}
+
+.voice-recording {
+  background: rgba(217, 122, 50, 0.16);
+  color: #9a4b18;
+}
+
+.voice-transcribing {
+  background: rgba(77, 121, 255, 0.12);
+  color: #3054a3;
+}
+
+.voice-button {
+  width: auto;
+  min-width: 132px;
+}
+
+.answer-box {
+  width: 100%;
+  min-height: 220px;
+  margin-top: 10px;
+  padding: 14px;
+  box-sizing: border-box;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.68);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.editor-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 10px 0 16px;
+}
+
+.button-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.tip-item {
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(217, 122, 50, 0.1);
+  color: #8a4a20;
+  font-size: 13px;
+}
