@@ -1,4 +1,5 @@
 import type { TranscriptionResult } from "./types.js";
+import { transcribeWithTencentAsr } from "./tencent-asr.js";
 
 interface AudioUpload {
   buffer: Buffer;
@@ -16,12 +17,16 @@ export async function transcribeAudio(input: AudioUpload): Promise<Transcription
     return {
       transcript: "",
       provider: "mock",
-      warning: "当前环境未配置真实语音转写服务，请配置 TRANSCRIBE_MODE=openai 和 OPENAI_API_KEY。"
+      warning: "当前环境还未启用正式语音转写，请配置 TRANSCRIBE_MODE=openai 和 OPENAI_API_KEY。"
     };
   }
 
   if (mode !== "openai") {
-    throw new Error("Transcription provider is not configured. Set TRANSCRIBE_MODE=openai.");
+    if (mode === "tencent") {
+      return transcribeWithTencentAsr(input);
+    }
+
+    throw new Error("Transcription provider is not configured. Set TRANSCRIBE_MODE=openai or tencent.");
   }
 
   return transcribeWithOpenAI(input);

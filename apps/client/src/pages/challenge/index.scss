@@ -1,39 +1,41 @@
 .challenge-page {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
 }
 
 .scenario-panel,
 .voice-panel,
 .editor-panel,
 .tips-panel {
-  padding: 18px;
+  padding: 22px;
 }
 
 .timer-pill {
-  background: rgba(93, 105, 83, 0.12);
-  color: #495543;
+  background: rgba(20, 83, 118, 0.08);
+  color: #145376;
 }
 
 .scenario-title {
   display: block;
   margin-top: 14px;
-  font-size: 24px;
+  font-size: 30px;
+  line-height: 1.25;
   font-weight: 700;
 }
 
 .scenario-prompt {
   display: block;
   margin: 12px 0 16px;
-  line-height: 1.7;
-  color: #65574a;
+  line-height: 1.8;
+  color: #556373;
+  font-size: 15px;
 }
 
 .counterpart-box {
-  padding: 14px;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.62);
+  padding: 16px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.78);
   margin-bottom: 14px;
 }
 
@@ -41,17 +43,50 @@
   display: block;
   margin-bottom: 6px;
   font-size: 12px;
-  color: #9a4b18;
+  color: #e66d39;
+  font-weight: 700;
 }
 
 .counterpart-line {
   display: block;
-  font-size: 18px;
-  line-height: 1.7;
+  font-size: 19px;
+  line-height: 1.8;
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.voice-mode-pill {
+  white-space: nowrap;
+}
+
+.voice-mode-openai {
+  background: rgba(34, 150, 120, 0.12);
+  color: #157965;
+}
+
+.voice-mode-tencent {
+  background: rgba(20, 83, 118, 0.12);
+  color: #145376;
+}
+
+.voice-mode-mock {
+  background: rgba(230, 109, 57, 0.12);
+  color: #b55526;
+}
+
+.voice-mode-disabled,
+.voice-mode-unknown {
+  background: rgba(86, 100, 114, 0.12);
+  color: #556373;
 }
 
 .voice-row {
-  margin-top: 14px;
+  margin-top: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -62,45 +97,46 @@
   padding: 8px 12px;
   border-radius: 999px;
   font-size: 12px;
+  font-weight: 700;
 }
 
 .voice-idle {
-  background: rgba(93, 105, 83, 0.12);
-  color: #495543;
+  background: rgba(20, 83, 118, 0.08);
+  color: #145376;
 }
 
 .voice-recording {
-  background: rgba(217, 122, 50, 0.16);
-  color: #9a4b18;
+  background: rgba(230, 109, 57, 0.16);
+  color: #b55526;
 }
 
 .voice-transcribing {
-  background: rgba(77, 121, 255, 0.12);
-  color: #3054a3;
+  background: rgba(34, 150, 120, 0.12);
+  color: #157965;
 }
 
 .voice-button {
   width: auto;
-  min-width: 132px;
+  min-width: 134px;
 }
 
 .answer-box {
   width: 100%;
-  min-height: 220px;
-  margin-top: 10px;
-  padding: 14px;
+  min-height: 240px;
+  margin-top: 12px;
+  padding: 16px;
   box-sizing: border-box;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.68);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.78);
   font-size: 15px;
-  line-height: 1.8;
+  line-height: 1.85;
 }
 
 .editor-foot {
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  margin: 10px 0 16px;
+  margin: 12px 0 16px;
 }
 
 .button-stack {
@@ -113,13 +149,13 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 14px;
+  margin: 12px 0 14px;
 }
 
 .tip-item {
   padding: 10px 12px;
   border-radius: 14px;
-  background: rgba(217, 122, 50, 0.1);
-  color: #8a4a20;
+  background: rgba(230, 109, 57, 0.1);
+  color: #b55526;
   font-size: 13px;
 }

@@ -53,7 +53,7 @@ export interface EvaluationResult {
 
 export interface TranscriptionResult {
   transcript: string;
-  provider: "openai" | "mock";
+  provider: "openai" | "mock" | "tencent";
   durationMs?: number;
   warning?: string;
 }

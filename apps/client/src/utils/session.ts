@@ -16,7 +16,7 @@ export function clearAuthToken() {
 }
 
 export function getApiBase() {
-  return Taro.getStorageSync(API_BASE_KEY) || "http://localhost:4000";
+  return Taro.getStorageSync(API_BASE_KEY) || "https://api.eqora.cn";
 }
 
 export function setApiBase(apiBase: string) {

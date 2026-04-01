@@ -4,11 +4,11 @@ import "./index.scss";
 const sections = [
   {
     title: "1. 协议范围",
-    body: "本协议适用于你使用“说话艺术陪练”小程序及其相关服务的全部行为。你在注册、登录、浏览或使用相关功能时，即视为已阅读并同意本协议。"
+    body: "本协议适用于你使用 Eqora 表达训练小程序及其相关服务的全部行为。你在注册、登录、浏览或使用相关功能时，即视为已阅读并同意本协议。"
   },
   {
     title: "2. 服务内容",
-    body: "本产品当前提供场景练习、文字作答、AI 评分、成长记录展示等能力。语音转写、更多题库和会员功能可能在后续版本逐步开放。"
+    body: "当前版本提供场景练习、文字作答、AI 评分、成长记录展示等功能。语音转写、更多题库和会员能力可能会在后续版本逐步开放。"
   },
   {
     title: "3. 用户行为规范",
@@ -32,7 +32,7 @@ const sections = [
   },
   {
     title: "8. 其他",
-    body: "本协议当前为提审准备草案版本。正式上线前，建议补充主体名称、联系邮箱、争议解决条款及其他依法应公示内容。"
+    body: "本协议当前为提审准备草案版本。正式上线前，建议补齐主体名称、联系邮箱、争议解决条款及其他依法应公示内容。"
   }
 ] as const;
 
@@ -41,9 +41,9 @@ export default function AgreementPage() {
     <View className='page-shell legal-page'>
       <View className='hero-card legal-hero fade-up'>
         <Text className='pill'>提审准备草案</Text>
-        <Text className='legal-title'>说话艺术陪练用户协议</Text>
+        <Text className='legal-title'>Eqora 用户协议</Text>
         <Text className='section-subtitle'>
-          生效日期：2026-03-18。当前内容适合测试版和提审准备阶段使用，正式上线前建议补齐主体与法务细节。
+          生效日期：2026-03-18。当前内容适用于测试版和提审准备阶段，正式上线前建议补齐主体与法务细节。
         </Text>
       </View>
 

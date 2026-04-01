@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Button, Text, Textarea, View } from "@tarojs/components";
 import Taro, { useLoad } from "@tarojs/taro";
-import { fetchScenarios, evaluateAnswer, transcribeAudio } from "@/services/api";
+import { evaluateAnswer, fetchScenarios, fetchServerHealth, transcribeAudio } from "@/services/api";
 import type { Scenario } from "@/types";
 import { formatCategory, formatDifficulty, formatDuration } from "@/utils/format";
 import "./index.scss";
@@ -18,12 +18,30 @@ function ThinkingTimerPill({ startedAt }: { startedAt: number }) {
       setElapsedMs(Date.now() - startedAt);
     }, 1000);
 
-    return () => {
-      clearInterval(timer);
-    };
+    return () => clearInterval(timer);
   }, [startedAt]);
 
   return <Text className='pill timer-pill'>思考中 {formatDuration(elapsedMs)}</Text>;
+}
+
+function buildVoiceHint(envSupported: boolean, transcriptionMode: string) {
+  if (!envSupported) {
+    return "当前环境不支持小程序录音，先用文字训练也能完成整条闭环。";
+  }
+
+  if (transcriptionMode === "openai") {
+    return "录音结束后会自动转写成文字，你可以再微调一句，让表达更稳。";
+  }
+
+  if (transcriptionMode === "tencent") {
+    return "录音结束后会上传到腾讯云语音识别，通常几秒内返回文字结果。";
+  }
+
+  if (transcriptionMode === "mock") {
+    return "当前是演示转写模式，适合体验录音流程，但不代表正式识别质量。";
+  }
+
+  return "服务器还未启用语音转写。你可以先口述理一遍，再把关键句写进下方作答框。";
 }
 
 export default function ChallengePage() {
@@ -33,8 +51,9 @@ export default function ChallengePage() {
   const [editorKey, setEditorKey] = useState(0);
   const [prefilledAnswer, setPrefilledAnswer] = useState<string | null>(null);
   const [voiceStatus, setVoiceStatus] = useState<VoiceStatus>("idle");
-  const [voiceHint, setVoiceHint] = useState("可直接录音，系统会尝试转写成文字后回填。 ");
   const [voiceSupported, setVoiceSupported] = useState(false);
+  const [transcriptionMode, setTranscriptionMode] = useState("unknown");
+  const [voiceHint, setVoiceHint] = useState("正在确认语音转写状态...");
   const answerRef = useRef("");
   const submittingRef = useRef(false);
   const recorderRef = useRef<ReturnType<typeof Taro.getRecorderManager> | null>(null);
@@ -61,8 +80,17 @@ export default function ChallengePage() {
     const supported = env === Taro.ENV_TYPE.WEAPP || env === Taro.ENV_TYPE.TT;
     setVoiceSupported(supported);
 
+    fetchServerHealth()
+      .then((health) => {
+        setTranscriptionMode(health.transcriptionMode);
+        setVoiceHint(buildVoiceHint(supported, health.transcriptionMode));
+      })
+      .catch(() => {
+        setTranscriptionMode("unknown");
+        setVoiceHint(buildVoiceHint(supported, "disabled"));
+      });
+
     if (!supported) {
-      setVoiceHint("当前环境不支持小程序录音，可先用文字模式体验。");
       return;
     }
 
@@ -71,7 +99,7 @@ export default function ChallengePage() {
 
     recorder.onStart(() => {
       setVoiceStatus("recording");
-      setVoiceHint("正在录音，结束后会自动上传并尝试转写。 ");
+      setVoiceHint("正在录音。想到一句稳的回应就说出来，停止后会尝试自动转写。");
     });
 
     recorder.onStop(async (result) => {
@@ -85,7 +113,7 @@ export default function ChallengePage() {
           setVoiceStatus("idle");
           setVoiceHint(transcriptResult.warning);
           Taro.showToast({
-            title: "当前未配置真实转写服务",
+            title: "当前未启用正式转写",
             icon: "none"
           });
           return;
@@ -95,7 +123,7 @@ export default function ChallengePage() {
         setPrefilledAnswer(transcriptResult.transcript);
         setEditorKey((current) => current + 1);
         setVoiceStatus("idle");
-        setVoiceHint(`已完成语音转写，来源：${transcriptResult.provider}`);
+        setVoiceHint(`转写完成，来源：${transcriptResult.provider}`);
         Taro.showToast({
           title: "语音已转成文字",
           icon: "success"
@@ -123,11 +151,28 @@ export default function ChallengePage() {
 
   const promptTips = useMemo(() => scenario?.pitfalls ?? [], [scenario]);
   const textareaValueProps = prefilledAnswer !== null ? { value: prefilledAnswer } : {};
+  const voiceReady =
+    voiceSupported &&
+    (transcriptionMode === "openai" || transcriptionMode === "mock" || transcriptionMode === "tencent");
+  const voiceTag =
+    transcriptionMode === "openai" || transcriptionMode === "tencent"
+      ? "已启用转写"
+      : transcriptionMode === "mock"
+        ? "演示模式"
+        : "未启用转写";
 
   async function handleStartRecord() {
     if (!voiceSupported || !recorderRef.current) {
       Taro.showToast({
         title: "当前环境暂不支持录音",
+        icon: "none"
+      });
+      return;
+    }
+
+    if (!voiceReady) {
+      Taro.showToast({
+        title: "服务器暂未启用转写",
         icon: "none"
       });
       return;
@@ -227,15 +272,16 @@ export default function ChallengePage() {
           </View>
 
           <View className='content-card voice-panel fade-up'>
-            <Text className='section-title'>语音作答</Text>
-            <Text className='section-subtitle'>{voiceHint}</Text>
+            <View className='section-head'>
+              <View>
+                <Text className='section-title'>语音作答</Text>
+                <Text className='section-subtitle'>{voiceHint}</Text>
+              </View>
+              <Text className={`pill voice-mode-pill voice-mode-${transcriptionMode}`}>{voiceTag}</Text>
+            </View>
             <View className='voice-row'>
               <Text className={`voice-status voice-${voiceStatus}`}>
-                {voiceStatus === "recording"
-                  ? "录音中"
-                  : voiceStatus === "transcribing"
-                    ? "转写中"
-                    : "待开始"}
+                {voiceStatus === "recording" ? "录音中" : voiceStatus === "transcribing" ? "转写中" : "待开始"}
               </Text>
               {voiceStatus === "recording" ? (
                 <Button className='secondary-button voice-button' onClick={handleStopRecord}>
@@ -245,7 +291,7 @@ export default function ChallengePage() {
                 <Button
                   className='secondary-button voice-button'
                   loading={voiceStatus === "transcribing"}
-                  disabled={!voiceSupported || voiceStatus === "transcribing"}
+                  disabled={!voiceReady || voiceStatus === "transcribing"}
                   onClick={handleStartRecord}
                 >
                   开始录音
@@ -261,7 +307,7 @@ export default function ChallengePage() {
               {...textareaValueProps}
               className='answer-box'
               maxlength={300}
-              placeholder='试着给出一句既得体又有边界的回答'
+              placeholder='试着写出一句既得体又有边界的回应。先接住对方，再表达你的立场和方案。'
               onInput={(event) => {
                 answerRef.current = event.detail.value || "";
               }}
@@ -274,7 +320,7 @@ export default function ChallengePage() {
             />
             <View className='editor-foot'>
               <Text className='section-subtitle'>最多 300 字</Text>
-              <Text className='section-subtitle'>建议先接住，再表达立场</Text>
+              <Text className='section-subtitle'>建议结构：接住需求 → 说明现实 → 给出方案</Text>
             </View>
             <View className='button-stack'>
               <Button className='primary-button' onClick={handleSubmit}>
@@ -284,7 +330,7 @@ export default function ChallengePage() {
           </View>
 
           <View className='content-card tips-panel fade-up'>
-            <Text className='section-title'>这关容易踩坑</Text>
+            <Text className='section-title'>这关最容易失手的地方</Text>
             <View className='tip-list'>
               {promptTips.map((tip) => (
                 <Text key={tip} className='tip-item'>

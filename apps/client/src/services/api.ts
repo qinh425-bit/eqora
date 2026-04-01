@@ -30,12 +30,15 @@ function resolveErrorMessage(data: unknown, fallback: string) {
   return fallback;
 }
 
-async function request<T>(url: string, options?: {
-  method?: "GET" | "POST";
-  data?: unknown;
-  header?: Record<string, string>;
-  auth?: boolean;
-}): Promise<T> {
+async function request<T>(
+  url: string,
+  options?: {
+    method?: "GET" | "POST";
+    data?: unknown;
+    header?: Record<string, string>;
+    auth?: boolean;
+  }
+): Promise<T> {
   try {
     const header: Record<string, string> = {
       ...(options?.header || {})
@@ -133,13 +136,13 @@ export async function loginWithMiniProgram(): Promise<AuthSession> {
     throw new Error("微信登录未返回有效 code，请在开发者工具里重新触发一次登录");
   }
 
-  let nickname = "\u5fae\u4fe1\u7ec3\u4e60\u7528\u6237";
+  let nickname = "微信练习用户";
   let avatarUrl = "";
 
   if (Taro.getEnv() === Taro.ENV_TYPE.WEAPP) {
     try {
       const profile = await Taro.getUserProfile({
-        desc: "\u7528\u4e8e\u5c55\u793a\u4f60\u7684\u8bad\u7ec3\u6210\u957f\u4fe1\u606f"
+        desc: "用于展示你的训练成长信息"
       });
       nickname = profile.userInfo?.nickName || nickname;
       avatarUrl = profile.userInfo?.avatarUrl || "";
@@ -173,7 +176,7 @@ export async function createGuestSession(): Promise<AuthSession> {
     },
     data: {
       platform: Taro.getEnv() === Taro.ENV_TYPE.H5 ? "h5" : "guest",
-      nickname: "\u4f53\u9a8c\u7528\u6237"
+      nickname: "体验用户"
     }
   });
 

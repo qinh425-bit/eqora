@@ -1,9 +1,9 @@
-﻿export function formatCategory(category: string) {
+export function formatCategory(category: string) {
   const map: Record<string, string> = {
     workplace: "职场",
-    family: "亲戚",
+    family: "家庭",
     social: "社交",
-    relationship: "关系"
+    relationship: "亲密关系"
   };
 
   return map[category] || category;
