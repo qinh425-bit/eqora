@@ -3,7 +3,7 @@ export function formatCategory(category: string) {
     workplace: "职场",
     family: "家庭",
     social: "社交",
-    relationship: "亲密关系"
+    relationship: "关系"
   };
 
   return map[category] || category;

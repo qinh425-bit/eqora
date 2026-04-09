@@ -1,17 +1,19 @@
 export default defineAppConfig({
   pages: [
-    "pages/home/index",
-    "pages/challenge/index",
-    "pages/report/index",
-    "pages/profile/index",
+    "pages/home-v2/index",
+    "pages/practice-v2/index",
+    "pages/challenge-v2/index",
+    "pages/report-v2/index",
+    "pages/profile-v2/index",
+    "pages/square-v2/index",
     "pages/privacy/index",
     "pages/agreement/index"
   ],
   window: {
-    navigationBarBackgroundColor: "#f8f1e7",
+    navigationBarBackgroundColor: "#f8fafc",
     navigationBarTextStyle: "black",
-    navigationBarTitleText: "说话艺术陪练",
-    backgroundColor: "#f6efe4",
+    navigationBarTitleText: "eqora",
+    backgroundColor: "#f8fafc",
     backgroundTextStyle: "light"
   }
 });

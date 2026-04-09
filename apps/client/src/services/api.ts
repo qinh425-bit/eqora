@@ -9,7 +9,7 @@ import type {
   TranscriptionResult,
   UserProfile
 } from "@/types";
-import { clearAuthToken, getApiBase, getAuthToken, setAuthToken } from "@/utils/session";
+import { getApiBase, getAuthToken, setAuthToken } from "@/utils/session";
 
 export interface ServerHealth {
   ok: boolean;
@@ -133,7 +133,7 @@ export async function loginWithMiniProgram(): Promise<AuthSession> {
   const loginResult = await Taro.login();
 
   if (!loginResult.code) {
-    throw new Error("微信登录未返回有效 code，请在开发者工具里重新触发一次登录");
+    throw new Error("微信登录未返回有效 code，请重新发起一次登录。");
   }
 
   let nickname = "微信练习用户";
@@ -147,7 +147,7 @@ export async function loginWithMiniProgram(): Promise<AuthSession> {
       nickname = profile.userInfo?.nickName || nickname;
       avatarUrl = profile.userInfo?.avatarUrl || "";
     } catch (_error) {
-      // User may decline profile permission; continue with fallback profile.
+      // The user may decline profile authorization. We still allow login.
     }
   }
 
@@ -161,22 +161,6 @@ export async function loginWithMiniProgram(): Promise<AuthSession> {
       platform: "weapp",
       nickname,
       avatarUrl
-    }
-  });
-
-  setAuthToken(session.token);
-  return session;
-}
-
-export async function createGuestSession(): Promise<AuthSession> {
-  const session = await request<AuthSession>("/api/auth/login", {
-    method: "POST",
-    header: {
-      "Content-Type": "application/json"
-    },
-    data: {
-      platform: Taro.getEnv() === Taro.ENV_TYPE.H5 ? "h5" : "guest",
-      nickname: "体验用户"
     }
   });
 
@@ -217,8 +201,4 @@ export async function saveTrainingRecord(payload: {
     },
     data: payload
   });
-}
-
-export function resetSessionForApiSwitch() {
-  clearAuthToken();
 }

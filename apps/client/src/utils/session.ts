@@ -1,7 +1,6 @@
 import Taro from "@tarojs/taro";
 
 const TOKEN_KEY = "speakwise-token";
-const API_BASE_KEY = "speakwise-api-base";
 
 export function getAuthToken() {
   return Taro.getStorageSync(TOKEN_KEY) || "";
@@ -16,9 +15,5 @@ export function clearAuthToken() {
 }
 
 export function getApiBase() {
-  return Taro.getStorageSync(API_BASE_KEY) || "https://api.eqora.cn";
-}
-
-export function setApiBase(apiBase: string) {
-  Taro.setStorageSync(API_BASE_KEY, apiBase);
+  return "https://api.eqora.cn";
 }
